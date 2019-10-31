@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import {getPokemon} from '../../ducks/reducer'
 
 const Open = (props) => (
   <div className="open">
@@ -22,6 +23,15 @@ const Open = (props) => (
             <h3 key={pokemon.name}>{pokemon.name}</h3>
         ))
         }
+        <button
+        disabled={!props.pokemon.previous}
+        onClick={()=> props.getPokemon(props.pokemon.previous)}
+        >{'<<<'}</button>
+        
+        <button
+        disabled={!props.pokemon.next}
+        onClick={()=> props.getPokemon(props.pokemon.next)}
+        >{'>>>'}</button>
       </div>
     </div>
   </div>
@@ -31,4 +41,4 @@ function mapStateToProps(reduxState) {
   return reduxState
 }
 
-export default connect(mapStateToProps)(Open)
+export default connect(mapStateToProps, {getPokemon})(Open)
